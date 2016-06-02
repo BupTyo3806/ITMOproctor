@@ -226,7 +226,65 @@ define([
                 function(r) {
                     if (r) self.removeRows(selected);
                 });
+        },
+        doExport: function() {
+            var collection = this.$Grid.datagrid('getData').rows;
+            console.log(JSON.stringify(collection));
+            JSONToCSVConvertor(collection, true);
         }
     });
+    function JSONToCSVConvertor(jsonObject, ShowLabel) {
+    
+        var array = typeof jsonObject != "object" ? JSON.parse(jsonObject) : jsonObject;
+        
+        if (array == null) {
+            return; // No data found on the jsonObject
+        }
+
+        var str = "\uFEFF";
+        
+        if (ShowLabel) {
+            var row = "";
+            
+            //This loop will extract the label from 1st index of on array
+            for (var index in array[0]) {
+                
+                //Now convert each value to string and comma-seprated
+                row += index + ',';
+            }
+    
+            row = row.slice(0, -1);
+            
+            //append Label row with line break
+            str += row + '\r\n';
+    }
+    
+        for (var i = 0; i < array.length; i++) {
+            var line = "";
+    
+            for (var index in array[i]) {
+                line += array[i][index] + ";"; // Set delimiter
+            }
+    
+            // Here is an example where you would wrap the values in double quotes
+            // for (var index in array[i]) {
+            //    line += '"' + array[i][index] + '",';
+            // }
+    
+            line.slice(0,line.Length-1); 
+    
+            str += line + "\r\n";
+        }
+    
+        var uri = 'data:text/csv;charset=utf-8,' + encodeURI(str);
+
+        var downloadLink = document.createElement("a");
+        downloadLink.href = uri;
+        downloadLink.download = "users_data.csv";
+        
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    }
     return View;
 });
