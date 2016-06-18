@@ -27,6 +27,7 @@
     "postinstall": "cd ./public && bower install"
   },
   "dependencies": {
+    "async": "^2.0.0-rc.6",
     "body-parser": "^1.15.0",
     "bower": "^1.7.7",
     "connect-mongo": "^0.8.2",

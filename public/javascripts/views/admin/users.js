@@ -227,6 +227,21 @@ define([
                     if (r) self.removeRows(selected);
                 });
         },
+        doImport: function() {
+            var csv = 'Другой,admin2,Администратор,Системы,Мужской,19.11.1986,admin@example.com,,,,,,,3,,admin2,local\n' +
+                'Еще,admin3,Один,Админитсратор,Женский,19.11.1976,admin@example.com,,,,,,,3,,admin3,local';
+            $.ajax({
+                type: "POST",
+                url: "/user/import",
+                data: {"data": csv},
+                success: function(ans){
+                    if (ans == "OK") {
+                        console.log("in");
+                        window.location.reload();
+                    }
+                }
+            });    
+        },
         doExport: function() {
             var collection = this.$Grid.datagrid('getData').rows;
             console.log(JSON.stringify(collection));
@@ -263,7 +278,7 @@ define([
             var line = "";
     
             for (var index in array[i]) {
-                line += array[i][index] + ";"; // Set delimiter
+                line += array[i][index] + ","; // Set delimiter
             }
     
             // Here is an example where you would wrap the values in double quotes

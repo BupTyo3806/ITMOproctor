@@ -80,6 +80,7 @@ define([
                     config[item.name] = item.value;
                 }
             });
+            console.log(config);
             this.model.save(config, {
                 success: function(model) {
                     self.callback();

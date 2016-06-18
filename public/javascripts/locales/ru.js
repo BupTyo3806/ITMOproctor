@@ -417,7 +417,8 @@ define({
             "add": "Добавить",
             "edit": "Изменить",
             "remove": "Удалить",
-            "export": "Экспорт в CSV"
+            "export": "Экспорт в CSV",
+            "import": "Импорт из CSV"
         },
         "remove": {
             "progressMsg": "Удаление данных...",
